@@ -1,0 +1,14 @@
+{
+//    "homepage": "https://charts.mozilla.org/coverage-test",
+    "homepage": "https://charts.mozilla.org/coverage",
+    "source": "C:/Users/kyle/code/firefox-code-coverage-frontend",
+    "destination": {
+        "bucket": "charts.mozilla.org",
+//        "directory": "/coverage-test",
+        "directory": "/coverage",
+        "$ref": "file://~/private.json#aws_credentials"
+    },
+    "debug": {
+        "trace": true
+	}
+}
