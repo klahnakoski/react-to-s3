@@ -15,7 +15,7 @@ import hashlib
 
 from boto.s3 import connect_to_region
 from jx_python import jx
-from mo_dots import unwrap, Data, wrap
+from mo_dots import unwrap, Data, wrap, set_default
 from mo_files import File, join_path
 from mo_future import text_type
 from mo_json import value2json, json2value
@@ -48,18 +48,29 @@ def _synch(config):
 
     Log.note("update homepage")
     package_json = File(main_dir) / "package.json"
-    old_package = package_json.read_bytes().decode('utf8')
-    new_package = json2value(old_package)
-    new_package.homepage = config.homepage
+    old_package = package_json.read()
+    new_package = set_default({}, config.package, json2value(old_package, leaves=False))
     package_json.write(value2json(new_package, pretty=True))
 
     try:
-        Log.note("compile")
-        p = Process("cmd.exe", ["yarn", "build"], cwd=main_dir, shell=True)
+        p = Process(
+            "install",
+            ["yarn", "install"],
+            env={str(k): str(v) for k, v in config.env.items()},
+            cwd=main_dir,
+            shell=True,
+            debug=True
+        )
         p.join()
-        stdout = list(p.stdout)
-        stderr = list(p.stderr)
-        Log.note("stdout = {{stdout}}\nstderr = {{stderr}}", stdout=stdout, stderr=stderr, stack_depth=1)
+        p = Process(
+            "build",
+            ["yarn", "build"],
+            env={str(k): str(v) for k, v in config.env.items()},
+            cwd=main_dir,
+            shell=True,
+            debug=True
+        )
+        p.join()
     finally:
         # RESTORE package.json
         Log.note("restore homepage")

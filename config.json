@@ -1,14 +1,19 @@
 {
-//    "homepage": "https://charts.mozilla.org/coverage-test",
-    "homepage": "https://charts.mozilla.org/coverage",
+    "package": {  // PROPERTIES TO OVERRIDE IN package.json
+        "homepage": "https://charts.mozilla.org/coverage-test4"
+//        "homepage": "https://charts.mozilla.org/coverage"
+    },
+    "env": { // ENVIROMENT VARIABLES TO SET DURING yarn build
+        "ROUTING": "hashHistory"
+    },
     "source": "C:/Users/kyle/code/firefox-code-coverage-frontend",
     "destination": {
         "bucket": "charts.mozilla.org",
-//        "directory": "/coverage-test",
-        "directory": "/coverage",
+        "directory": "/coverage-test4",
+//        "directory": "/coverage",
         "$ref": "file://~/private.json#aws_credentials"
     },
     "debug": {
         "trace": true
-	}
+    }
 }
