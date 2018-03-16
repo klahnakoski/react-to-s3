@@ -26,9 +26,8 @@ Simple script that will build-and-copy React app to S3
 
 ```
 
-
-
-* **homepage** - replaces the "homepage" variable in `package.json` file
+* **package** - replaces properties found in the `package.json` file
+* **env** - additional environment variables added during `install` and `build` commands 
 * **source** - path to (local) react application directory
 * **destination** - Which S3 bucket to place data
 * **debug** - [see documentation](https://github.com/klahnakoski/mo-logs#configuration)
