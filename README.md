@@ -5,18 +5,27 @@ Simple script that will build-and-copy React app to S3
 
 ### Example config file
 
-    {
-        "homepage": "https://charts.mozilla.org/coverage",
-        "source": "C:/Users/kyle/code/firefox-code-coverage-frontend",
-        "destination": {
-            "bucket": "charts.mozilla.org",
-            "directory": "/coverage",
-            "$ref": "file://~/private.json#aws_credentials"
-        },
-        "debug": {
-            "trace": true
-        }
+```json
+{
+    "package": { 
+        "homepage": "https://charts.mozilla.org/coverage"
+    },
+    "env": { 
+        "ROUTING": "hashHistory"
+    },
+    "source": "C:/Users/kyle/code/firefox-code-coverage-frontend",
+    "destination": {
+        "bucket": "charts.mozilla.org",
+        "directory": "/coverage",
+        "$ref": "file://~/private.json#aws_credentials"
+    },
+    "debug": {
+        "trace": true
     }
+}
+
+```
+
 
 
 * **homepage** - replaces the "homepage" variable in `package.json` file
